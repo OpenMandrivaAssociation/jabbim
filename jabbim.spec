@@ -21,10 +21,10 @@ BuildRequires:  desktop-file-utils
 
 Requires:   python >= 2.5
 Requires:   python-qt4
-#Requires:   python-twisted-names
-#Requires:   python-twisted-web
-#Requires:   python-twisted-words
-#Requires:   python-sqlite2
+Requires:   python-twisted-names
+Requires:   python-twisted-web
+Requires:   python-twisted-words
+Requires:   python-sqlite2
 #Requires:   pyOpenSSL
 
 %define jabbimdata %{_datadir}/jabbim
