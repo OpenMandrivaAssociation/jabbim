@@ -3,7 +3,7 @@ Version:    0.4.3
 Release:    %mkrel 1
 Summary:    Jabber client for mere mortals
 
-Group:      Applications/Internet
+Group:      Networking/Instant messaging 
 License:    GPLv2+
 URL:        http://dev.jabbim.cz/jabbim
 # The source was obtained from upstream SVN repository:
