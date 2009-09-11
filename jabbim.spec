@@ -1,6 +1,6 @@
 Name:       jabbim
 Version:    0.4.3
-Release:    %mkrel 1
+Release:    %mkrel 2
 Summary:    Jabber client for mere mortals
 
 Group:      Networking/Instant messaging 
