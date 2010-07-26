@@ -1,33 +1,34 @@
 Name:       jabbim
-Version:    0.4.3
-Release:    %mkrel 2
+Version:    0.5.1
+Release:    %mkrel 1
 Summary:    Jabber client for mere mortals
 
 Group:      Networking/Instant messaging 
 License:    GPLv2+
 URL:        http://dev.jabbim.cz/jabbim
 # The source was obtained from upstream SVN repository:
-# svn export svn://dev.jabbim.cz/jabbim/tags/0.4.3 jabbim-0.4.3
-# tar -cjf jabbim-0.4.3.tar.bz2 jabbim-0.4.3/
-Source0:    jabbim-0.4.3.tar.bz2
-Source1:    jabbim.in
+# svn export svn://dev.jabbim.cz/jabbim/tags/0.5.1 jabbim-0.5.1
+# tar -cjf jabbim-0.5.1.tar.bz2 jabbim-0.5.1/
+Source0:    jabbim-0.5.1.tar.bz2
 Patch0:     jabbim-0.4-autoupdate-disable-notification.diff
-Patch1:     jabbim-0.4-stringlists-in-QVariants.diff
+Patch1:     jabbim-0.5.1-mdv-fix-log-in-unicode.patch
 BuildArch:  noarch
-BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root
+
 
 BuildRequires:  python >= 2.5
 BuildRequires:  desktop-file-utils
-
+BuildRequires:	qt4-devel
 Requires:   python >= 2.5
 Requires:   python-qt4
 Requires:   python-twisted-names
 Requires:   python-twisted-web
+Requires:   python-twisted-web2
 Requires:   python-twisted-words
 Requires:   python-sqlite2
-#Requires:   pyOpenSSL
+Requires:   python-configobj
+Requires:   python-OpenSSL
 
-%define jabbimdata %{_datadir}/jabbim
+
 
 %description
 Jabbim is a user-friendly Jabber (XMPP) client. Its goal is to make the modern
@@ -39,65 +40,33 @@ with the advanced functionality provided by the Jabber server of the same name
 %defattr(-,root,root,-)
 %doc AUTHORS COPYING
 %{_bindir}/jabbim
-%{_datadir}/applications/fedora-jabbim.desktop
+%{_datadir}/applications/jabbim.desktop
 %{_datadir}/icons/hicolor/*/apps/jabbim.png
 %{_datadir}/icons/hicolor/scalable/apps/jabbim.svg
 %{_datadir}/pixmaps/jabbim.png
 %{_datadir}/pixmaps/jabbim.svg
-%{jabbimdata}/
+%{_datadir}/jabbim
 
 #--------------------------------------------------------------------
 
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
-# fill in the template for the starting script
-sed -e 's|@JABBIMDATA@|%{jabbimdata}|g' %{SOURCE1} > jabbim
+%patch1 -p0
+# Fix Makefile 
+sed -i 's|lrelease-qt4|lrelease|g' Makefile
+
 
 %build
+make clean
+%make PREFIX=%_prefix
 
 %install
-rm -rf %{buildroot}
+%__rm -rf %{buildroot}
 
-desktop-file-install --vendor fedora \
-    --dir %{buildroot}%{_datadir}/applications \
-    --delete-original \
-    jabbim.desktop
+%makeinstall_std
 
-mkdir -p %{buildroot}/%{_bindir}
-install -p -m 755 jabbim %{buildroot}/%{_bindir}/jabbim
-rm jabbim
-
-# remove the files which are not useful for end-users
-# and files which upstream forgot to remove
-rm jabbim.sh jabbim.pro
-rm images/32x32/status/rsvg2png.sh
-rm widgets/preferences.py.orig
-
-mkdir -p %{buildroot}/%{jabbimdata}
-# take everything else upstream ships
-cp -a . %{buildroot}/%{jabbimdata}
-
-# these will be installed from their original location
-rm %{buildroot}/%{jabbimdata}/{AUTHORS,COPYING}
-
-for i in 16 22 32 48 ; do
-    d="%{buildroot}%{_datadir}/icons/hicolor/${i}x${i}/apps"
-    install -dm 755 "$d"
-    install -m 644 -p images/${i}x${i}/apps/jabbim.png "$d/jabbim.png"
-done
-
-d="%{buildroot}%{_datadir}/icons/hicolor/scalable/apps"
-install -dm 755 "$d"
-install -m 644 -p images/scalable/apps/jabbim.svg "$d/jabbim.svg"
-
-install -dm 755 %{buildroot}/%{_datadir}/pixmaps
-pushd %{buildroot}/%{_datadir}/pixmaps
-ln -s ../icons/hicolor/48x48/apps/jabbim.png .
-ln -s ../icons/hicolor/scalable/apps/jabbim.svg .
-popd
 
 %clean
-rm -rf %{buildroot}
+%__rm -rf %{buildroot}
 
