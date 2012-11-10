@@ -1,0 +1,12 @@
+diff -up jabbim-0.4.3/plugins/autoupdate/autoupdate.py.orig jabbim-0.4.3/plugins/autoupdate/autoupdate.py
+--- jabbim-0.4.3/plugins/autoupdate/autoupdate.py.orig	2008-07-03 16:59:49.000000000 +0200
++++ jabbim-0.4.3/plugins/autoupdate/autoupdate.py	2008-07-03 17:00:03.000000000 +0200
+@@ -27,7 +27,7 @@ class config:
+ 		self.config['check_jabbim'] = {
+ 			'type':'boolean',
+ 			'label':self.main.tr("Notify about new versions of Jabbim"),
+-			'value':'True'
++			'value':'False'
+ 		}
+ 		self.config['check_plugins'] = {
+ 			'type':'boolean',

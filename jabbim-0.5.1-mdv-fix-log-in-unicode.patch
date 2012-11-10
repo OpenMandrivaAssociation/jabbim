@@ -1,0 +1,19 @@
+#
+# Description: This patch fix a error in log handling with python-twisted 10.1+
+# Forwarded: yes
+# Bug: none
+# Author:  Balcaen John <mikala@mandriva.org>
+#
+Index: pyxl/client.py
+===================================================================
+--- pyxl/client.py
++++ pyxl/client.py	2010-07-26 09:02:55.096183912 -0300
+@@ -412,7 +412,7 @@
+ #		self._connect(unicode(r[4][0]), int(r[4][1]))
+ 
+ 	def _dnsLookupErr(self, resp):
+-		log.err('DNS err: '+ unicode(resp))
++		log.err('DNS err: ')
+ 
+ 		self.connections.append((self.host, self.port))
+ 		self.connections.append(('conn443.netlab.cz', 443))
