@@ -70,3 +70,29 @@ make clean
 %clean
 %__rm -rf %{buildroot}
 
+
+
+%changelog
+* Mon Jul 26 2010 John Balcaen <mikala@mandriva.org> 0.5.1-1mdv2011.0
++ Revision: 560832
+- Update to 0.5.1
+- drop Source1 (not used anymore & provided by upstream)
+- drop patch1
+- add a new patch1 to fix a log error handling with python-twisted 10.1 (from upstream)
+- fix Makefile in the spec for lrelease
+- clean spec
+- add requires (python-twisted-web2,python-OpenSSL,python-configobj)
+
+* Fri Sep 11 2009 Thierry Vignaud <tv@mandriva.org> 0.4.3-2mdv2010.0
++ Revision: 438014
+- rebuild
+
+* Mon Dec 15 2008 Nicolas Lécureuil <nlecureuil@mandriva.com> 0.4.3-1mdv2009.1
++ Revision: 314409
+- Add Requires
+- Fix groups
+- import jabbim
+
+
+* Sun Dec 15 2008 Nicolas Lecureuil <neoclust@mandriva.org>  0.4.3-1mdv2009.1
+- Import Jabbim from Fedora spec file
