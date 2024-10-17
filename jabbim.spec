@@ -5,7 +5,7 @@ Summary:    Jabber client for mere mortals
 
 Group:      Networking/Instant messaging 
 License:    GPLv2+
-URL:        http://dev.jabbim.cz/jabbim
+URL:        https://dev.jabbim.cz/jabbim
 # The source was obtained from upstream SVN repository:
 # svn export svn://dev.jabbim.cz/jabbim/tags/0.5.1 jabbim-0.5.1
 # tar -cjf jabbim-0.5.1.tar.bz2 jabbim-0.5.1/
